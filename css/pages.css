@@ -1,0 +1,508 @@
+/* 子页面顶部英雄区 */
+.page-hero {
+  position: relative;
+  min-height: 58vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: calc(var(--nav-height) + 80px) 40px 80px;
+  overflow: hidden;
+}
+
+/* 子页英雄区背景层 */
+.page-hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+/* 子页英雄区背景图片 */
+.page-hero__bg img, .page-hero__bg video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.18;
+}
+
+/* 背景渐变暗色遮罩 */
+.page-hero__bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 40%, rgba(27, 95, 160, 0.35) 0%, transparent 60%),
+              linear-gradient(to bottom, rgba(248, 250, 252, 0.5) 0%, var(--color-bg-deep) 92%);
+}
+
+/* 英雄区内容居中容器 */
+.page-hero__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+}
+
+/* 面包屑导航条 */
+.page-hero__breadcrumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  margin-bottom: 22px;
+  padding: 6px 16px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 100px;
+  backdrop-filter: blur(10px);
+}
+
+/* 面包屑链接 */
+.page-hero__breadcrumb a {
+  color: var(--color-text-secondary);
+  transition: color var(--transition-fast);
+}
+
+/* 面包屑链接悬停变色 */
+.page-hero__breadcrumb a:hover {
+  color: var(--color-accent);
+}
+
+/* 面包屑当前页文字 */
+.page-hero__breadcrumb span {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+/* 子页大标题渐变文字 */
+.page-hero__title {
+  font-size: 50px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 18px;
+  background: linear-gradient(135deg, var(--color-text), var(--color-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 子页描述文字 */
+.page-hero__desc {
+  font-size: 16px;
+  color: var(--color-text-secondary);
+  line-height: 1.75;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+/* 知识门户三列卡片网格 */
+.portal-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+}
+
+/* 知识门户卡片容器 */
+.portal-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0;
+}
+
+/* 门户卡片封面图片区域 */
+.portal-card__img {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+/* 卡片图片悬停缩放 */
+.portal-card__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.portal-card:hover .portal-card__img img {
+  transform: scale(1.06);
+}
+
+/* 封面渐变遮罩 */
+.portal-card__img-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(248, 250, 252, 0.88) 0%, transparent 60%);
+}
+
+/* 封面左上角标签 */
+.portal-card__tag {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  padding: 5px 12px;
+  background: rgba(13, 148, 136, 0.2);
+  border: 1px solid rgba(13, 148, 136, 0.4);
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-accent);
+  backdrop-filter: blur(10px);
+}
+
+/* 卡片正文区域 */
+.portal-card__body {
+  padding: 26px 26px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+/* 卡片标题 */
+.portal-card__title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+/* 卡片描述 */
+.portal-card__desc {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  flex: 1;
+}
+
+/* 卡片底部操作按钮 */
+.portal-card__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-accent);
+  margin-top: 4px;
+  transition: gap var(--transition-fast);
+}
+
+/* 悬停时按钮箭头拉开间距 */
+.portal-card:hover .portal-card__btn {
+  gap: 14px;
+}
+
+/* 灾害详情图文交错区 */
+.disaster-detail {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 48px;
+  align-items: center;
+  padding: 48px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* 最后一条去掉底边线 */
+.disaster-detail:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+/* 第一条去掉顶边距 */
+.disaster-detail:first-child {
+  padding-top: 0;
+}
+
+/* 反向排列时图片放右侧 */
+.disaster-detail--reverse .disaster-detail__img {
+  order: 2;
+}
+
+/* 灾害详情图片容器 */
+.disaster-detail__img {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  height: 340px;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+}
+
+/* 灾害详情图片 */
+.disaster-detail__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 图片角上预警等级标签 */
+.disaster-detail__img-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  padding: 6px 14px;
+  background: rgba(229, 62, 62, 0.85);
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  backdrop-filter: blur(10px);
+}
+
+/* 灾害详情内容区 */
+.disaster-detail__content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* 灾害详情标题 */
+.disaster-detail__title {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--color-text);
+}
+
+/* 灾害特征元数据网格 */
+.disaster-detail__meta {
+  display: grid;
+  gap: 14px;
+}
+
+/* 单条元数据卡片 */
+.disaster-detail__meta-item {
+  padding: 18px 20px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--color-accent);
+}
+
+/* 元数据标签 */
+.disaster-detail__meta-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+
+/* 元数据内容 */
+.disaster-detail__meta-text {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+}
+
+/* 科普视频区块 */
+.video-block {
+  margin-bottom: 56px;
+}
+
+/* 视频区块头部 */
+.video-block__head {
+  margin-bottom: 20px;
+}
+
+/* 视频标题行 */
+.video-block__title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* 视频标签标记 */
+.video-block__badge {
+  padding: 4px 10px;
+  background: rgba(245, 158, 11, 0.16);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-warning-orange);
+}
+
+/* 视频区块描述 */
+.video-block__desc {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+}
+
+/* 视频播放器外框 */
+.video-block__wrapper {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4);
+}
+
+/* 视频元素 */
+.video-block__wrapper video {
+  width: 100%;
+  display: block;
+  background: #000;
+}
+
+/* 视频封面图 */
+.video-block__cover {
+  width: 100%;
+  display: block;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+/* 视频加载占位面板 */
+.video-block__placeholder {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: var(--color-bg-mid);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border: 2px dashed var(--color-border);
+}
+
+/* 占位图标 */
+.video-block__placeholder-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.06);
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 占位图标 SVG */
+.video-block__placeholder-icon svg {
+  width: 26px;
+  height: 26px;
+  fill: var(--color-text-secondary);
+}
+
+/* 占位主文字 */
+.video-block__placeholder-text {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+/* 占位副文字 */
+.video-block__placeholder-sub {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  opacity: 0.7;
+}
+
+/* 自救步骤三列网格 */
+.rescue-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+/* 单张自救步骤卡片 */
+.rescue-step {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* 步骤插图 */
+.rescue-step__img {
+  height: 180px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+/* 步骤插图图片 */
+.rescue-step__img img, .rescue-step__img video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 步骤序号圆圈 */
+.rescue-step__num {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 800;
+  color: #fff;
+}
+
+/* 步骤标题 */
+.rescue-step__title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+/* 步骤说明 */
+.rescue-step__text {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+}
+
+/* 应急包展示图文双栏 */
+.kit-showcase {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+/* 展示图片容器 */
+.kit-showcase__img {
+  height: 380px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+}
+
+/* 展示图片 */
+.kit-showcase__img img, .kit-showcase__img video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 返回按钮 */
+.page-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 32px;
+  padding: 10px 22px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+  transition: border-color var(--transition-fast), gap var(--transition-fast);
+}
+
+/* 返回按钮悬停间距拉开 */
+.page-back:hover {
+  border-color: var(--color-border-accent);
+  gap: 14px;
+}

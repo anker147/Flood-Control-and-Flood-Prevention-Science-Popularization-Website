@@ -1,0 +1,338 @@
+/* 顶部导航栏容器，固定吸顶 */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  padding: 0 40px;
+  justify-content: space-between;
+  transition: background 0.35s ease,
+    backdrop-filter 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+/* 滚动后切换为毛玻璃背景 浅色主题下改为浅白磨砂 */
+.site-header.scrolled {
+  background: rgba(248, 250, 252, 0.88);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  box-shadow: 0 1px 0 rgba(15, 23, 42, 0.06);
+}
+
+/* 左侧品牌标识 */
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--color-text);
+  flex-shrink: 0;
+}
+
+/* 品牌图标方块 */
+.nav-logo__icon {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 品牌图标内 svg 尺寸 */
+.nav-logo__icon svg {
+  width: 18px;
+  height: 18px;
+  fill: #fff;
+}
+
+/* 中部导航链接组，绝对定位实现真正水平居中 */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  list-style: none;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* 右侧按钮组占位 */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+/* 单个链接基础样式 浅色主题下使用深色文字 */
+.nav-links li a {
+  display: block;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(30, 41, 59, 0.8);
+  border-radius: var(--radius-sm);
+  transition: color var(--transition-fast), background var(--transition-fast);
+  position: relative;
+}
+
+/* 链接下方指示条 */
+.nav-links li a::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 20px;
+  height: 2px;
+  background: var(--color-accent);
+  border-radius: 2px;
+  transition: transform var(--transition-fast);
+}
+
+/* 链接悬停态 */
+.nav-links li a:hover {
+  color: var(--color-text);
+  background: var(--color-surface);
+}
+
+/* 悬停与当前页显示指示条 */
+.nav-links li a:hover::after,
+.nav-links li a.active::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+/* 当前页链接高亮 */
+.nav-links li a.active {
+  color: var(--color-accent);
+}
+
+/* 紧急求助按钮 浅色主题下使用浅红背景深红文字 */
+.nav-emergency {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 20px;
+  background: rgba(220, 38, 38, 0.10);
+  border: 1px solid rgba(220, 38, 38, 0.25);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  color: #DC2626;
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+  flex-shrink: 0;
+  cursor: none;
+}
+
+/* 紧急按钮悬停加红 */
+.nav-emergency:hover {
+  background: rgba(220, 38, 38, 0.18);
+  border-color: rgba(220, 38, 38, 0.45);
+}
+
+/* 紧急按钮内图标 */
+.nav-emergency svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+/* 移动端汉堡菜单按钮，桌面隐藏 */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: none;
+  padding: 6px;
+}
+
+/* 汉堡按钮三条横线 */
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--color-text);
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* 移动端全屏菜单遮罩 浅色主题下改为浅白遮罩 */
+.mobile-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(248, 250, 252, 0.97);
+  backdrop-filter: blur(20px);
+  z-index: 900;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+/* 遮罩打开态 */
+.mobile-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* 遮罩内菜单项 */
+.mobile-overlay a {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--color-text);
+  padding: 12px 32px;
+  transition: color var(--transition-fast);
+}
+
+/* 菜单项悬停变色 */
+.mobile-overlay a:hover {
+  color: var(--color-accent);
+}
+
+/* 遮罩关闭按钮 */
+.mobile-close {
+  position: absolute;
+  top: 36px;
+  right: 26px;
+  background: none;
+  border: none;
+  color: var(--color-text);
+  font-size: 28px;
+  cursor: none;
+}
+
+/* 遮罩内紧急求助按钮 浅色主题下使用浅红背景深红文字 */
+.mobile-emergency {
+  margin-top: 24px;
+  padding: 14px 36px;
+  background: rgba(220, 38, 38, 0.12);
+  border: 1px solid rgba(220, 38, 38, 0.35);
+  border-radius: var(--radius-sm);
+  color: #DC2626;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* 退出登录按钮，默认仅图标方形 浅色主题下使用深色半透明 */
+.nav-logout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  background: rgba(15, 23, 42, 0.04);
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-radius: var(--radius-sm);
+  color: rgba(30, 41, 59, 0.82);
+  flex-shrink: 0;
+  cursor: none;
+  transition: width 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+    padding 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+/* 退出按钮悬停提亮 */
+.nav-logout:hover {
+  background: rgba(15, 23, 42, 0.08);
+  border-color: rgba(15, 23, 42, 0.20);
+  color: var(--color-text);
+}
+
+/* 退出按钮内图标 */
+.nav-logout svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 退出按钮文字，默认收起透明 */
+.nav-logout__text {
+  max-width: 0;
+  opacity: 0;
+  margin-left: 0;
+  font-size: 13px;
+  font-weight: 600;
+  overflow: hidden;
+  transition: max-width 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.24s ease 0.04s,
+    margin-left 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 确认态展开为图标加文字并红色高亮 浅色主题下使用浅红背景 */
+.nav-logout.confirming {
+  width: 118px;
+  padding: 0 14px;
+  justify-content: flex-start;
+  gap: 8px;
+  background: rgba(220, 38, 38, 0.15);
+  border-color: rgba(220, 38, 38, 0.45);
+  color: #DC2626;
+  animation: nav-logout-pulse 1s ease-in-out infinite;
+}
+
+/* 确认态文字展开显示 */
+.nav-logout.confirming .nav-logout__text {
+  max-width: 60px;
+  opacity: 1;
+  margin-left: 2px;
+}
+
+/* 确认态悬停加深红色 */
+.nav-logout.confirming:hover {
+  background: rgba(229, 62, 62, 0.3);
+  border-color: rgba(229, 62, 62, 0.7);
+}
+
+/* 退出按钮脉冲动画 浅色主题下使用深红色 */
+@keyframes nav-logout-pulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4);
+  }
+
+  50% {
+    box-shadow: 0 0 0 6px rgba(220, 38, 38, 0);
+  }
+}
+
+/* 移动端退出按钮 */
+.mobile-logout {
+  margin-top: 24px;
+  padding: 14px 36px;
+  background: rgba(15, 23, 42, 0.08);
+  border: 1px solid rgba(15, 23, 42, 0.2);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  font-size: 18px;
+  font-weight: 600;
+  cursor: none;
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+
+/* 移动端退出确认态红色 浅色主题下使用深红色 */
+.mobile-logout.confirming {
+  background: rgba(220, 38, 38, 0.18);
+  border-color: rgba(220, 38, 38, 0.50);
+  color: #DC2626;
+}

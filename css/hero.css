@@ -1,0 +1,249 @@
+/* 首屏英雄区域全屏容器 */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding-top: var(--nav-height);
+}
+
+/* 英雄区背景渐变层 浅色主题下使用浅蓝浅青 glow */
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(ellipse at 30% 50%, rgba(27, 95, 160, 0.12) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 20%, rgba(13, 148, 136, 0.08) 0%, transparent 50%),
+              var(--color-bg-deep);
+}
+
+/* 英雄区背景图片层 */
+.hero__bg-image {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+/* 背景图片设置 */
+.hero__bg-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.22;
+}
+
+/* 粒子动画画布层 */
+.hero__canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* 英雄区内容网格布局 */
+.hero__content {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  width: 100%;
+}
+
+/* 左侧文字区域 */
+.hero__text {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* 顶部状态胶囊标签 浅色主题下使用新青绿色 */
+.hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: rgba(13, 148, 136, 0.10);
+  border: 1px solid rgba(13, 148, 136, 0.25);
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-accent);
+  width: fit-content;
+}
+
+/* 标签内脉冲圆点 */
+.hero__badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  animation: dot-pulse 2s infinite;
+}
+
+/* 圆点呼吸脉冲动画 */
+@keyframes dot-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+
+/* 主标题大字 */
+.hero__title {
+  font-size: 54px;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+/* 标题渐变装饰文字 */
+.hero__title-accent {
+  background: linear-gradient(135deg, var(--color-accent), var(--color-primary-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 副标题描述 */
+.hero__subtitle {
+  font-size: 17px;
+  color: var(--color-text-secondary);
+  line-height: 1.75;
+  max-width: 440px;
+}
+
+/* 操作按钮行 */
+.hero__actions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* 紧急热线标签行 */
+.hero__hotlines {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* 热线号码卡片 */
+.hotline-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  backdrop-filter: blur(10px);
+}
+
+/* 热线号码大字 */
+.hotline-chip__num {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--color-danger);
+}
+
+/* 热线标签小字 */
+.hotline-chip__label {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+/* 右侧视觉插图区域 */
+.hero__visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 插图容器边框与阴影 浅色主题下使用深色浅阴影 */
+.hero__img-wrap {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 24px 80px rgba(15, 23, 42, 0.15), var(--shadow-glow);
+  border: 1px solid var(--color-border);
+}
+
+/* 插图图片 */
+.hero__img-wrap img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  display: block;
+}
+
+/* 插图底部渐变遮罩 浅色主题下改为浅白渐变 */
+.hero__img-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(248, 250, 252, 0.5) 0%, transparent 50%);
+}
+
+/* 插图底部信息栏 浅色主题下改为浅白磨砂 */
+.hero__img-caption {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: rgba(248, 250, 252, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+/* 插图信息栏文字 */
+.hero__img-caption-text {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+/* 插图信息栏标题 */
+.hero__img-caption-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* 底部滚动提示 */
+.hero__scroll-hint {
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+}
+
+/* 向下滚动箭头动画 */
+.hero__scroll-arrow {
+  width: 24px;
+  height: 24px;
+  border-right: 2px solid var(--color-text-secondary);
+  border-bottom: 2px solid var(--color-text-secondary);
+  transform: rotate(45deg);
+  animation: scroll-bounce 1.6s ease infinite;
+}
+
+/* 箭头上下弹跳动画 */
+@keyframes scroll-bounce {
+  0%, 100% { transform: rotate(45deg) translateY(0); }
+  50% { transform: rotate(45deg) translateY(6px); }
+}

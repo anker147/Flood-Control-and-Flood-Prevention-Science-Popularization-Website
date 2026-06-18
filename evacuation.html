@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<!-- 文档头与样式资源加载 -->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>应急避险 · 防汛防灾宣传</title>
+  <script>
+    if (!sessionStorage.getItem('flood_loggedIn')) {
+      window.location.href = './login.html';
+    }
+  </script>
+  <link rel="stylesheet" href="./css/common.css?v=20260618i">
+  <link rel="stylesheet" href="./css/navigation.css?v=20260618i">
+  <link rel="stylesheet" href="./css/hero.css?v=20260618i">
+  <link rel="stylesheet" href="./css/cards.css?v=20260618i">
+  <link rel="stylesheet" href="./css/sections.css?v=20260618j">
+  <link rel="stylesheet" href="./css/emergency-modal.css?v=20260618i">
+  <link rel="stylesheet" href="./css/pages.css?v=20260618j">
+  <link rel="stylesheet" href="./css/responsive.css?v=20260618i">
+</head>
+<body>
+
+<!-- 顶部导航栏 -->
+  <header class="site-header" id="siteHeader">
+    <a href="./index.html" class="nav-logo">
+      <div class="nav-logo__icon"><svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div>
+      <span>防汛防灾科普</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="./disasters.html" class="nav-link">灾害科普</a></li>
+      <li><a href="./warnings.html" class="nav-link">预警信号</a></li>
+      <li><a href="./evacuation.html" class="nav-link">应急避险</a></li>
+      <li><a href="./videos.html" class="nav-link">宣传视频</a></li>
+      <li><a href="./rescue.html" class="nav-link">自救互救</a></li>
+    </ul>
+    <button class="nav-emergency" id="emergencyBtn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.47 2 2 0 0 1 3.59 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.29 6.29l.91-.92a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      紧急求助
+    </button>
+    <button class="hamburger" id="hamburger" aria-label="打开菜单"><span></span><span></span><span></span></button>
+  </header>
+
+<!-- 移动端全屏菜单遮罩 -->
+  <div class="mobile-overlay" id="mobileOverlay">
+    <button class="mobile-close" id="mobileClose">✕</button>
+    <a href="./index.html">首页</a>
+    <a href="./disasters.html">灾害科普</a>
+    <a href="./warnings.html">预警信号</a>
+    <a href="./evacuation.html">应急避险</a>
+    <a href="./videos.html">宣传视频</a>
+    <a href="./rescue.html">自救互救</a>
+    <button class="mobile-emergency" id="mobileEmergencyBtn">📞 紧急求助</button>
+  </div>
+
+<!-- 紧急求助弹窗 -->
+  <div class="emergency-modal" id="emergencyModal">
+    <div class="emergency-modal__content">
+      <button class="emergency-modal__close" id="emergencyClose">✕</button>
+      <h2 class="emergency-modal__title">紧急求助热线</h2>
+      <p class="emergency-modal__subtitle">遇到紧急情况，请根据所在地区拨打相应救援电话</p>
+      <input type="text" class="emergency-search" id="emergencySearch" placeholder="搜索城市或地区...">
+      <div class="emergency-contacts" id="emergencyContacts">
+        <div class="emergency-contact__group">
+          <div class="emergency-contact__group-title">急救报警</div>
+          <div class="emergency-contact__item" data-region="全国通用 急救 报警 消防"><div class="emergency-contact__info"><div class="emergency-contact__region">全国通用</div><div class="emergency-contact__number">119</div><div class="emergency-contact__desc">消防救援，火灾、洪涝、地震等灾害救援</div></div><a href="tel:119" class="emergency-contact__call">立即拨打</a></div>
+          <div class="emergency-contact__item" data-region="全国通用 急救 医疗"><div class="emergency-contact__info"><div class="emergency-contact__region">全国通用</div><div class="emergency-contact__number">120</div><div class="emergency-contact__desc">急救医疗，伤病人员紧急救治与转运</div></div><a href="tel:120" class="emergency-contact__call">立即拨打</a></div>
+          <div class="emergency-contact__item" data-region="全国通用 报警 治安 交通"><div class="emergency-contact__info"><div class="emergency-contact__region">全国通用</div><div class="emergency-contact__number">110</div><div class="emergency-contact__desc">紧急报警，治安事件、交通事故、突发事件</div></div><a href="tel:110" class="emergency-contact__call">立即拨打</a></div>
+          <div class="emergency-contact__item" data-region="全国通用 交通事故 道路救援"><div class="emergency-contact__info"><div class="emergency-contact__region">全国通用</div><div class="emergency-contact__number">122</div><div class="emergency-contact__desc">交通事故报警，道路救援、拥堵疏导、路况咨询</div></div><a href="tel:122" class="emergency-contact__call">立即拨打</a></div>
+        </div>
+        <div class="emergency-contact__group">
+          <div class="emergency-contact__group-title">灾害应急专线</div>
+          <div class="emergency-contact__item" data-region="全国通用 气象 天气 预警"><div class="emergency-contact__info"><div class="emergency-contact__region">全国通用</div><div class="emergency-contact__number">12121</div><div class="emergency-contact__desc">气象预报，天气预警信息查询</div></div><a href="tel:12121" class="emergency-contact__call">立即拨打</a></div>
+          <div class="emergency-contact__item" data-region="全国通用 预警 灾害 国家级"><div class="emergency-contact__info"><div class="emergency-contact__region">全国通用</div><div class="emergency-contact__number">12379</div><div class="emergency-contact__desc">国家预警信息发布中心，灾害预警短信与推送</div></div><a href="tel:12379" class="emergency-contact__call">立即拨打</a></div>
+          <div class="emergency-contact__item" data-region="全国通用 水上 求救 江河 湖海"><div class="emergency-contact__info"><div class="emergency-contact__region">全国通用</div><div class="emergency-contact__number">12395</div><div class="emergency-contact__desc">水上求救，江河湖海遇险求救专用</div></div><a href="tel:12395" class="emergency-contact__call">立即拨打</a></div>
+          <div class="emergency-contact__item" data-region="全国通用 森林火警 火灾 山林"><div class="emergency-contact__info"><div class="emergency-contact__region">全国通用</div><div class="emergency-contact__number">12119</div><div class="emergency-contact__desc">森林火警，山林火灾报警与扑救调度</div></div><a href="tel:12119" class="emergency-contact__call">立即拨打</a></div>
+        </div>
+        <div class="emergency-contact__group">
+          <div class="emergency-contact__group-title">民生保障抢修</div>
+          <div class="emergency-contact__item" data-region="全国通用 电力 停电 电网"><div class="emergency-contact__info"><div class="emergency-contact__region">全国通用</div><div class="emergency-contact__number">95598</div><div class="emergency-contact__desc">国家电网抢修，灾害停电报修与电力咨询</div></div><a href="tel:95598" class="emergency-contact__call">立即拨打</a></div>
+        </div>
+        <div class="emergency-contact__group">
+          <div class="emergency-contact__group-title">华北 · 东北</div>
+          <div class="emergency-contact__item" data-region="北京"><div class="emergency-contact__info"><div class="emergency-contact__region">北京</div><div class="emergency-contact__number">010-12345</div><div class="emergency-contact__desc">市民服务热线，综合应急咨询与求助</div></div><a href="tel:01012345" class="emergency-contact__call">立即拨打</a></div>
+          <div class="emergency-contact__item" data-region="天津"><div class="emergency-contact__info"><div class="emergency-contact__region">天津</div><div class="emergency-contact__number">022-12345</div><div class="emergency-contact__desc">市民服务热线，综合应急咨询与求助</div></div><a href="tel:02212345" class="emergency-contact__call">立即拨打</a></div>
+          <div class="emergency-contact__item" data-region="河北 石家庄"><div class="emergency-contact__info"><div class="emergency-contact__region">河北</div><div class="emergency-contact__number">0311-12345</div><div class="emergency-contact__desc">市民服务热线，综合应急咨询与求助</div></div><a href="tel:031112345" class="emergency-contact__call">立即拨打</a></div>
+          <div class="emergency-contact__item" data-region="山西 太原"><div class="emergency-contact__info"><div class="emergency-contact__region">山西</div><div class="emergency-contact__number">0351-12345</div><div class="emergency-contact__desc">市民服务热线，综合应急咨询与求助</div></div><a href="tel:035112345" class="emergency-contact__call">立即拨打</a></div>
+          <div class="emergency-contact__item" data-region="内蒙古 呼和浩特"><div class="emergency-contact__info"><div class="emergency-contact__region">内蒙古</div><div class="emergency-contact__number">0471-12345</div><div class="emergency-contact__desc">市民服务热线，综合应急咨询与求助</div></div><a href="tel:047112345" class="emergency-contact__call">立即拨打</a></div>
+          <div class="emergency-contact__item" data-region="辽宁 沈阳"><div class="emergency-contact__info"><div class="emergency-contact__region">辽宁</div><div class="emergency-contact__number">024-12345</div><div class="emergency-contact__desc">市民服务热线，综合应急咨询与求助</div></div><a href="tel:02412345" class="emergency-contact__call">立即拨打</a></div>
+          <div class="emergency-contact__item" data-region="吉林 长春"><div class="emergency-contact__info"><div class="emergency-contact__region">吉林</div><div class="emergency-contact__number">0431-12345</div><div class="emergency-contact__desc">市民服务热线，综合应急咨询与求助</div></div><a href="tel:043112345" class="emergency-contact__call">立即拨打</a></div>
+          <div class="emergency-contact__item" data-region="黑龙江 哈尔滨"><div class="emergency-contact__info"><div class="emergency-contact__region">黑龙江</div><div class="emergency-contact__number">0451-12345</div><div class="emergency-contact__desc">市民服务热线，暴雪、冰冻等灾害应急</div></div><a href="tel:045112345" class="emergency-contact__call">立即拨打</a></div>
+        </div>
+        <div class="emergency-contact__group">
+          <div class="emergency-contact__group-title">华东</div>
+          <div class="emergency-contact__item" data-region="上海"><div class="emergency-contact__info"><div class="emergency-contact__region">上海</div><div class="emergency-contact__number">021-12345</div><div class="emergency-contact__desc">市民服务热线，综合应急咨询与求助</div></div><a href="tel:02112345" class="emergency-contact__call">立即拨打</a></div>
+          <div class="emergency-contact__item" data-region="江苏 南京"><div class="emergency-contact__info"><div class="emergency-contact__region">江苏</div><div class="emergency-contact__number">025-12345</div><div class="emergency-contact__desc">市民服务热线，综合应急咨询与求助</div></div><a href="tel:02512345" class="emergency-contact__call">立即拨打</a></div>
+          <div class="emergency-contact__item" data-region="浙江 杭州"><div class="emergency-contact__info"><div class="emergency-contact__region">浙江</div><div class="emergency-contact__number">0571-12345</div><div class="emergency-contact__desc">市民服务热线，台风、暴雨等灾害应急</div></div><a href="tel:057112345" class="emergency-contact__call">立即拨打</a></div>
+          <div class="emergency-contact__item" data-region="安徽 合肥"><div class="emergency-contact__info"><div class="emergency-contact__region">安徽</div><div class="emergency-contact__number">0551-12345</div><div class="emergency-contact__desc">市民服务热线，综合应急咨询与求助</div></div><a href="tel:055112345" class="emergency-contact__call">立即拨打</a></div>
+          <div class="emergency-contact__item" data-region="福建 福州"><div class="emergency-contact__info"><div class="emergency-contact__region">福建</div><div class="emergency-contact__number">0591-12345</div><div class="emergency-contact__desc">市民服务热线，台风、暴雨等灾害应急</div></div><a href="tel:059112345" class="emergency-contact__call">立即拨打</a></div>
+          <div class="emergency-contact__item" data-region="江西 南昌"><div class="emergency-contact__info"><div class="emergency-contact__region">江西</div><div class="emergency-contact__number">0791-12345</div><div class="emergency-contact__desc">市民服务热线，综合应急咨询与求助</div></div><a href="tel:079112345" class="emergency-contact__call">立即拨打</a></div>
+          <div class="emergency-contact__item" data-region="山东 济南"><div class="emergency-contact__info"><div class="emergency-contact__region">山东</div><div class="emergency-contact__number">0531-12345</div><div class="emergency-contact__desc">市民服务热线，综合应急咨询与求助</div></div><a href="tel:053112345" class="emergency-contact__call">立即拨打</a></div>
+        </div>
+        <div class="emergency-contact__group">
+          <div class="emergency-contact__group-title">华中 · 华南</div>
+          <div class="emergency-contact__item" data-region="河南 郑州"><div class="emergency-contact__info"><div class="emergency-contact__region">河南</div><div class="emergency-contact__number">0371-12345</div><div class="emergency-contact__desc">市民服务热线，综合应急咨询与求助</div></div><a href="tel:037112345" class="emergency-contact__call">立即拨打</a></div>
+          <div class="emergency-contact__item" data-region="湖北 武汉"><div class="emergency-contact__info"><div class="emergency-contact__region">湖北</div><div class="emergency-contact__number">027-12345</div><div class="emergency-contact__desc">市民服务热线，综合应急咨询与求助</div></div><a href="tel:02712345" class="emergency-contact__call">立即拨打</a></div>
+          <div class="emergency-contact__item" data-region="湖南 长沙"><div class="emergency-contact__info"><div class="emergency-contact__region">湖南</div><div class="emergency-contact__number">0731-12345</div><div class="emergency-contact__desc">市民服务热线，综合应急咨询与求助</div></div><a href="tel:073112345" class="emergency-contact__call">立即拨打</a></div>
+          <div class="emergency-contact__item" data-region="广东 广州"><div class="emergency-contact__info"><div class="emergency-contact__region">广东</div><div class="emergency-contact__number">020-12345</div><div class="emergency-contact__desc">市民服务热线，台风、暴雨等灾害应急</div></div><a href="tel:02012345" class="emergency-contact__call">立即拨打</a></div>
+          <div class="emergency-contact__item" data-region="广西 南宁"><div class="emergency-contact__info"><div class="emergency-contact__region">广西</div><div class="emergency-contact__number">0771-12345</div><div class="emergency-contact__desc">市民服务热线，台风、暴雨等灾害应急</div></div><a href="tel:077112345" class="emergency-contact__call">立即拨打</a></div>
+          <div class="emergency-contact__item" data-region="海南 海口"><div class="emergency-contact__info"><div class="emergency-contact__region">海南</div><div class="emergency-contact__number">0898-12345</div><div class="emergency-contact__desc">市民服务热线，台风、暴雨等灾害应急</div></div><a href="tel:089812345" class="emergency-contact__call">立即拨打</a></div>
+        </div>
+        <div class="emergency-contact__group">
+          <div class="emergency-contact__group-title">西南</div>
+          <div class="emergency-contact__item" data-region="重庆"><div class="emergency-contact__info"><div class="emergency-contact__region">重庆</div><div class="emergency-contact__number">023-12345</div><div class="emergency-contact__desc">市民服务热线，综合应急咨询与求助</div></div><a href="tel:02312345" class="emergency-contact__call">立即拨打</a></div>
+          <div class="emergency-contact__item" data-region="四川 成都"><div class="emergency-contact__info"><div class="emergency-contact__region">四川</div><div class="emergency-contact__number">028-12345</div><div class="emergency-contact__desc">市民服务热线，地震、山洪等灾害应急</div></div><a href="tel:02812345" class="emergency-contact__call">立即拨打</a></div>
+          <div class="emergency-contact__item" data-region="贵州 贵阳"><div class="emergency-contact__info"><div class="emergency-contact__region">贵州</div><div class="emergency-contact__number">0851-12345</div><div class="emergency-contact__desc">市民服务热线，综合应急咨询与求助</div></div><a href="tel:085112345" class="emergency-contact__call">立即拨打</a></div>
+          <div class="emergency-contact__item" data-region="云南 昆明"><div class="emergency-contact__info"><div class="emergency-contact__region">云南</div><div class="emergency-contact__number">0871-12345</div><div class="emergency-contact__desc">市民服务热线，综合应急咨询与求助</div></div><a href="tel:087112345" class="emergency-contact__call">立即拨打</a></div>
+          <div class="emergency-contact__item" data-region="西藏 拉萨"><div class="emergency-contact__info"><div class="emergency-contact__region">西藏</div><div class="emergency-contact__number">0891-12345</div><div class="emergency-contact__desc">市民服务热线，综合应急咨询与求助</div></div><a href="tel:089112345" class="emergency-contact__call">立即拨打</a></div>
+        </div>
+        <div class="emergency-contact__group">
+          <div class="emergency-contact__group-title">西北</div>
+          <div class="emergency-contact__item" data-region="陕西 西安"><div class="emergency-contact__info"><div class="emergency-contact__region">陕西</div><div class="emergency-contact__number">029-12345</div><div class="emergency-contact__desc">市民服务热线，综合应急咨询与求助</div></div><a href="tel:02912345" class="emergency-contact__call">立即拨打</a></div>
+          <div class="emergency-contact__item" data-region="甘肃 兰州"><div class="emergency-contact__info"><div class="emergency-contact__region">甘肃</div><div class="emergency-contact__number">0931-12345</div><div class="emergency-contact__desc">市民服务热线，综合应急咨询与求助</div></div><a href="tel:093112345" class="emergency-contact__call">立即拨打</a></div>
+          <div class="emergency-contact__item" data-region="青海 西宁"><div class="emergency-contact__info"><div class="emergency-contact__region">青海</div><div class="emergency-contact__number">0971-12345</div><div class="emergency-contact__desc">市民服务热线，综合应急咨询与求助</div></div><a href="tel:097112345" class="emergency-contact__call">立即拨打</a></div>
+          <div class="emergency-contact__item" data-region="宁夏 银川"><div class="emergency-contact__info"><div class="emergency-contact__region">宁夏</div><div class="emergency-contact__number">0951-12345</div><div class="emergency-contact__desc">市民服务热线，综合应急咨询与求助</div></div><a href="tel:095112345" class="emergency-contact__call">立即拨打</a></div>
+          <div class="emergency-contact__item" data-region="新疆 乌鲁木齐"><div class="emergency-contact__info"><div class="emergency-contact__region">新疆</div><div class="emergency-contact__number">0991-12345</div><div class="emergency-contact__desc">市民服务热线，综合应急咨询与求助</div></div><a href="tel:099112345" class="emergency-contact__call">立即拨打</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- 应急避险页头区 -->
+  <section class="page-hero">
+    <div class="page-hero__bg"><img src="./images/应急避险主图.webp" alt="应急避险"></div>
+    <div class="page-hero__inner reveal">
+      <div class="page-hero__breadcrumb"><a href="./index.html">首页</a> / <span>应急避险</span></div>
+      <h1 class="page-hero__title">科学疏散 · 四步避险流程</h1>
+      <p class="page-hero__desc">面对自然灾害威胁，科学有序地按照避险步骤行动，能显著提高自身和家人的生存概率。</p>
+    </div>
+  </section>
+
+<!-- 四步避险流程与紧急禁忌 -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="section-label">避险流程</div>
+        <h2 class="section-title">四步避险 · 逐步行动</h2>
+        <p class="section-desc">从预警关注到安全转移，再到等待救援，每一步都关乎生命安全。</p>
+      </div>
+
+      <div class="evac-layout">
+        <div class="timeline reveal">
+          <div class="timeline-item">
+            <div class="timeline-item__num">1</div>
+            <div class="timeline-item__body">
+              <img src="./images/关注预警信号.webp" alt="关注预警" style="width:100%;height:160px;object-fit:cover;border-radius:var(--radius-sm);margin-bottom:14px;">
+              <div class="timeline-item__title">密切关注预警信息</div>
+              <div class="timeline-item__text">通过电视、广播、手机应急短信、国家预警信息发布系统等渠道，实时掌握气象灾害预警动态，不轻信谣言，以官方发布为准。</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-item__num">2</div>
+            <div class="timeline-item__body">
+              <img src="./images/应急物资.webp" alt="准备物资" style="width:100%;height:160px;object-fit:cover;border-radius:var(--radius-sm);margin-bottom:14px;">
+              <div class="timeline-item__title">提前准备应急物资</div>
+              <div class="timeline-item__text">收到橙色及以上预警后，立即准备应急包：饮用水（至少3天用量）、食物、急救药品、手电、充电宝、重要证件复印件、防水袋等。</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-item__num">3</div>
+            <div class="timeline-item__body">
+              <img src="./images/灾害转移.webp" alt="安全转移" style="width:100%;height:160px;object-fit:cover;border-radius:var(--radius-sm);margin-bottom:14px;">
+              <div class="timeline-item__title">按指定路线安全转移</div>
+              <div class="timeline-item__text">收到转移命令后，立即携带应急包，沿官方公布的疏散路线转移至指定安置点。切勿徒步涉水，避开地下通道、涵洞、低洼道路。</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-item__num">4</div>
+            <div class="timeline-item__body">
+              <img src="./images/等待救援.webp" alt="等待救援" style="width:100%;height:160px;object-fit:cover;border-radius:var(--radius-sm);margin-bottom:14px;">
+              <div class="timeline-item__title">等待救援 · 互助互救</div>
+              <div class="timeline-item__text">被困时保持冷静，拨打 119/110/120 报告位置。向高处转移，用亮色衣物或手电发出求救信号。条件允许时协助邻居老人、儿童撤离。</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="evac-tips stagger-group">
+          <div class="section-label reveal">紧急禁忌</div>
+          <div class="evac-tip reveal">
+            <div class="evac-tip__icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg></div>
+            <div>
+              <div class="evac-tip__title">切勿徒步涉水</div>
+              <div class="evac-tip__text">15 cm 以上流速较大的水流可导致成年人跌倒，流速超过 0.5 m/s 的水流足以将人冲走。</div>
+            </div>
+          </div>
+          <div class="evac-tip reveal">
+            <div class="evac-tip__icon"><svg viewBox="0 0 24 24"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+            <div>
+              <div class="evac-tip__title">远离电力设施</div>
+              <div class="evac-tip__text">灾害中电线杆、配电箱、电器设备极易导电，触电是灾害中重要致死原因，务必保持安全距离。</div>
+            </div>
+          </div>
+          <div class="evac-tip reveal">
+            <div class="evac-tip__icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+            <div>
+              <div class="evac-tip__title">勿返回取财物</div>
+              <div class="evac-tip__text">灾害期间擅自返回危险区域取财物，是最常见的遇难原因之一。生命财产皆重要，但生命只有一次。</div>
+            </div>
+          </div>
+          <div class="evac-tip reveal">
+            <div class="evac-tip__icon"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+            <div>
+              <div class="evac-tip__title">禁止在危险区域避险</div>
+              <div class="evac-tip__text">桥梁、涵洞、地下室、大树下、电线杆旁在灾害期间都是危险区域，切勿在此停留等待。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:64px;">
+        <a href="./index.html" class="page-back">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+          返回首页
+        </a>
+      </div>
+    </div>
+  </section>
+
+<!-- 页脚信息区 -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-brand__logo">
+            <div class="footer-brand__icon"><svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div>
+            <span>防汛防灾宣传科普</span>
+          </div>
+          <p class="footer-brand__desc">本网站旨在普及防汛防灾应急知识，提升公众防灾意识与自救能力。</p>
+        </div>
+        <div>
+          <div class="footer-col__title">快速导航</div>
+          <ul class="footer-col__links">
+            <li><a href="./disasters.html">灾害科普</a></li>
+            <li><a href="./warnings.html">预警信号</a></li>
+            <li><a href="./evacuation.html">应急避险</a></li>
+            <li><a href="./videos.html">宣传视频</a></li>
+            <li><a href="./rescue.html">自救互救</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col__title">紧急联系</div>
+          <ul class="footer-col__links">
+            <li><a href="tel:119">消防救援 · 119</a></li>
+            <li><a href="tel:120">急救医疗 · 120</a></li>
+            <li><a href="tel:110">紧急报警 · 110</a></li>
+            <li><a href="tel:122">交通事故 · 122</a></li>
+            <li><a href="tel:95598">电力抢修 · 95598</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-bottom__copy">© 2026 Web前端期末网页设计</div>
+        <div class="footer-bottom__hotlines">
+          <div class="footer-hotline">消防 <strong>119</strong></div>
+          <div class="footer-hotline">急救 <strong>120</strong></div>
+          <div class="footer-hotline">报警 <strong>110</strong></div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+<!-- 脚本资源加载 -->
+  <script src="./js/navigation.js?v=20260618i"></script>
+  <script src="./js/animations.js?v=20260618i"></script>
+  <script src="./js/interactions.js?v=20260618i"></script>
+  <script src="./js/logout.js?v=20260618i"></script>
+  <script src="./js/cursor-trail.js?v=20260618i"></script>
+</body>
+</html>

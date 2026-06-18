@@ -1,0 +1,98 @@
+<!--
+ * Copyright (c) 2026 by 于航, All Rights Reserved. 
+-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<!-- 文档头与样式资源加载 -->
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>防汛防灾宣传科普</title>
+  <link rel="stylesheet" href="./css/login.css?v=20260618l">
+</head>
+
+<body>
+
+  <!-- 登录页面整体布局 -->
+  <div class="login-layout">
+
+    <!-- 展示区 -->
+    <img class="login-bg" src="images/主图.jpg" alt="" aria-hidden="true" />
+
+    <div class="login-banner">
+      <div class="login-banner__blob1"></div>
+      <div class="login-banner__blob2"></div>
+
+      <img class="login-banner__placeholder-img" src="images/login.png" alt="登录页主图">
+
+      <h2 class="login-banner__title">防汛防灾宣传科普</h2>
+      <p class="login-banner__subtitle">了解防灾知识，掌握应急技能，守护生命安全</p>
+
+      <div class="login-banner__hotlines">
+        <div class="login-banner__hotline">
+          <span class="login-banner__hotline-num">119</span>
+          <span class="login-banner__hotline-label">消防救援</span>
+        </div>
+        <div class="login-banner__hotline">
+          <span class="login-banner__hotline-num">120</span>
+          <span class="login-banner__hotline-label">急救医疗</span>
+        </div>
+        <div class="login-banner__hotline">
+          <span class="login-banner__hotline-num">110</span>
+          <span class="login-banner__hotline-label">紧急报警</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 右侧登录表单区 -->
+    <div class="login-panel">
+      <div class="login-card">
+        <div class="login-card__brand">
+          <div class="login-card__logo">
+            <svg viewBox="0 0 24 24" width="26" height="26">
+              <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" fill="#fff" />
+            </svg>
+          </div>
+          <h1 class="login-card__title">防汛防灾宣传科普</h1>
+          <p class="login-card__subtitle">登录平台，了解防灾知识</p>
+        </div>
+
+        <form id="loginForm" autocomplete="off" class="login-form">
+          <div class="login-field">
+            <div class="login-field__icon">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+            </div>
+            <input type="text" id="usernameInput" class="login-field__input" placeholder="请输入用户名（至少3位）" required>
+          </div>
+          <span class="login-field__error" id="usernameError"></span>
+
+          <div class="login-field">
+            <div class="login-field__icon">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+              </svg>
+            </div>
+            <input type="password" id="passwordInput" class="login-field__input" placeholder="请输入密码（至少6位）" required>
+          </div>
+          <span class="login-field__error" id="passwordError"></span>
+
+          <button type="submit" class="login-submit" id="submitBtn">登 录</button>
+        </form>
+
+        <p class="login-hint">暂无账号？任意填写即可体验平台</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 脚本资源加载 -->
+  <script src="./js/login.js?v=20260618l"></script>
+  <script src="./js/cursor-trail.js?v=20260618l"></script>
+</body>
+
+</html>

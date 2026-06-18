@@ -1,0 +1,482 @@
+/* 全局盒模型重置与光标隐藏 */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  cursor: none !important;
+}
+
+/* 登录页 CSS 变量声明 浅色主题 */
+:root {
+  --color-bg-deep: #F8FAFC;
+  --color-bg-mid: #EEF2F7;
+  --color-primary: #1B5FA0;
+  --color-primary-light: #2272BB;
+  --color-accent: #0D9488;
+  --color-accent-dim: rgba(13, 148, 136, 0.12);
+  --color-danger: #DC2626;
+  --color-warning-orange: #F59E0B;
+  --color-warning-yellow: #FBBF24;
+  --color-warning-blue: #60A5FA;
+  --color-surface: rgba(255, 255, 255, 0.65);
+  --color-surface-hover: rgba(255, 255, 255, 0.85);
+  --color-text: #1E293B;
+  --color-text-secondary: #64748B;
+  --color-border: rgba(15, 23, 42, 0.10);
+  --color-border-accent: rgba(13, 148, 136, 0.30);
+  --font-family: "Microsoft YaHei", "PingFang SC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --transition-fast: 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  --shadow-card: 0 8px 32px rgba(15, 23, 42, 0.10);
+  --shadow-glow: 0 0 24px rgba(13, 148, 136, 0.12);
+  --nav-height: 70px;
+}
+
+/* 登录页根节点占满全高 */
+html, body {
+  height: 100%;
+  font-family: var(--font-family);
+  color: var(--color-text);
+}
+
+/* 登录页背景与浅色遮罩 */
+body {
+  background: var(--color-bg-deep);
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: transparent;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* 自定义光标与拖尾元素基类 */
+.cursor-main,
+.cursor-trail {
+  position: fixed;
+  left: 0;
+  top: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform;
+  transform: translate(-1000px, -1000px);
+}
+
+/* 主光标小圆点 本体蓝色 光晕保留绿色 */
+.cursor-main {
+  width: 8px;
+  height: 8px;
+  background: #2563EB;
+  box-shadow: 0 0 3px rgba(13, 148, 136, 0.5), 0 0 7px rgba(13, 148, 136, 0.25);
+  z-index: 100000;
+}
+
+/* 光标拖尾基类，尺寸由 JS 内联 */
+.cursor-trail {
+  /* 尺寸/颜色由 JS 内联设置 */
+}
+
+/* 悬浮链接时光标放大提亮 本体蓝色光晕绿色 */
+body.cursor-on-link .cursor-main {
+  width: 14px;
+  height: 14px;
+  background: #3B82F6;
+  box-shadow: 0 0 8px rgba(13, 148, 136, 0.7);
+}
+
+/* 登录页左右双栏布局，左侧品牌区占比略大减少留白 */
+.login-layout {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* 整体渐变蒙版与光斑统一覆盖 浅色主题下改为透明 */
+.login-layout::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* 全页主图垫底层 模糊处理作为氛围背景 src 占位 铺满整个视口 */
+.login-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(14px) brightness(1.05) saturate(1.05);
+  transform: scale(1.15);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* 全页主图上方浅色蒙版 提亮主图并保证文字可读 */
+.login-layout::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(248, 250, 252, 0.80), rgba(238, 242, 247, 0.88));
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* 左侧品牌展示面板 叠于主图蒙版之上 */
+.login-banner {
+  position: relative;
+  z-index: 2;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 60px 48px;
+}
+
+/* 品牌内容元素叠放于光斑之上 */
+.login-banner > *:not(.login-banner__blob1):not(.login-banner__blob2) {
+  position: relative;
+  z-index: 3;
+}
+
+/* 顶部蓝色光斑装饰 浅色主题下降低透明度 */
+.login-banner__blob1 {
+  position: absolute;
+  width: 480px;
+  height: 480px;
+  background: radial-gradient(circle, rgba(27, 95, 160, 0.15) 0%, transparent 60%);
+  border-radius: 50%;
+  top: -120px;
+  left: -100px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* 底部青色光斑装饰 浅色主题下降低透明度 */
+.login-banner__blob2 {
+  position: absolute;
+  width: 360px;
+  height: 360px;
+  background: radial-gradient(circle, rgba(13, 148, 136, 0.12) 0%, transparent 60%);
+  border-radius: 50%;
+  bottom: -120px;
+  left: 30%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* 登录页展示区主图 login.png */
+.login-banner__placeholder-img {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: 340px;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  margin-bottom: 40px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 12px 40px rgba(15, 23, 42, 0.12);
+}
+
+/* 品牌主标题 */
+.login-banner__title {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--color-text);
+  text-align: center;
+  z-index: 1;
+  margin-bottom: 12px;
+}
+
+/* 品牌副标题 */
+.login-banner__subtitle {
+  font-size: 15px;
+  color: var(--color-text-secondary);
+  text-align: center;
+  z-index: 1;
+  line-height: 1.6;
+  max-width: 280px;
+}
+
+/* 品牌区紧急热线行 */
+.login-banner__hotlines {
+  display: flex;
+  gap: 12px;
+  margin-top: 40px;
+  z-index: 1;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* 单个热线卡片 */
+.login-banner__hotline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 18px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  backdrop-filter: blur(10px);
+}
+
+/* 热线号码 */
+.login-banner__hotline-num {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--color-danger);
+}
+
+/* 热线标签 */
+.login-banner__hotline-label {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  margin-top: 2px;
+}
+
+/* 右侧登录表单面板 叠于主图蒙版之上 */
+.login-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 48px;
+  background: transparent;
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+}
+
+/* 登录表单卡片 浅色主题下白磨砂 */
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 44px 40px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 24px 64px rgba(15, 23, 42, 0.10);
+  position: relative;
+  z-index: 1;
+}
+
+/* 卡片顶部品牌标识区 */
+.login-card__brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 36px;
+}
+
+/* 卡片 Logo 图标 */
+.login-card__logo {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(27, 95, 160, 0.45);
+}
+
+/* Logo 内 SVG 图标 */
+.login-card__logo svg {
+  width: 26px;
+  height: 26px;
+  fill: #fff;
+}
+
+/* 卡片标题 */
+.login-card__title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-text);
+  text-align: center;
+}
+
+/* 卡片副标题 */
+.login-card__subtitle {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+/* 输入域行容器 */
+.login-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+/* 输入框内前置图标 */
+.login-field__icon {
+  position: absolute;
+  left: 14px;
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 登录输入框 浅色主题下使用深色半透明 */
+.login-field__input {
+  width: 100%;
+  padding: 13px 14px 13px 44px;
+  background: rgba(15, 23, 42, 0.04);
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  font-family: var(--font-family);
+  font-size: 14px;
+  outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+}
+
+/* 输入框占位文字 浅色主题下改为深色 */
+.login-field__input::placeholder {
+  color: rgba(30, 41, 59, 0.4);
+}
+
+/* 输入框聚焦态高亮 浅色主题下使用新青绿色 */
+.login-field__input:focus {
+  border-color: var(--color-accent);
+  background: rgba(13, 148, 136, 0.06);
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.14);
+}
+
+/* 输入框错误态红色边框与抖动 */
+.login-field__input.error {
+  border-color: var(--color-danger);
+  box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.14);
+  animation: shake 0.4s ease;
+}
+
+/* 输入错误抖动动画 */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  60% { transform: translateX(6px); }
+  80% { transform: translateX(-4px); }
+}
+
+/* 表单字段错误提示文字 浅色主题下使用深红色 */
+.login-field__error {
+  font-size: 12px;
+  color: #DC2626;
+  min-height: 20px;
+  margin-bottom: 10px;
+  padding-left: 4px;
+  display: block;
+}
+
+/* 登录表单容器 */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* 登录提交按钮 */
+.login-submit {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+  border: none;
+  border-radius: var(--radius-sm);
+  color: #fff;
+  font-family: var(--font-family);
+  font-size: 15px;
+  font-weight: 600;
+  margin-top: 8px;
+  transition: opacity var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+/* 提交按钮悬停态 */
+.login-submit:hover {
+  opacity: 0.92;
+  box-shadow: 0 6px 24px rgba(27, 95, 160, 0.5);
+  transform: translateY(-1px);
+}
+
+/* 提交按钮按下缩放 */
+.login-submit:active {
+  transform: scale(0.98);
+}
+
+/* 提交按钮加载中状态 */
+.login-submit.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* 表单底部提示文字 */
+.login-hint {
+  text-align: center;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  margin-top: 20px;
+}
+
+/* 提示文字内链接 */
+.login-hint a {
+  color: var(--color-accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* 移动端断点隐藏品牌区仅保留登录卡片 */
+@media (max-width: 768px) {
+  .login-layout {
+    grid-template-columns: 1fr;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  .login-banner {
+    display: none;
+  }
+
+  .login-panel {
+    padding: 24px 20px;
+    min-height: 100dvh;
+  }
+
+  .login-card {
+    padding: 28px 24px;
+  }
+}
+
+/* 小屏断点登录卡片进一步收紧内边距 */
+@media (max-width: 480px) {
+  .login-panel {
+    padding: 20px 16px;
+  }
+
+  .login-card {
+    padding: 24px 18px;
+  }
+
+  .login-card__brand {
+    margin-bottom: 24px;
+  }
+}

@@ -1,0 +1,495 @@
+/* 三列信息卡片网格 */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+/* 信息卡片容器，纵向弹性布局 */
+.info-card {
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* 卡片内图标容器 */
+.info-card__icon {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-accent-dim);
+}
+
+/* 卡片内 SVG 图标尺寸与描边 */
+.info-card__icon svg {
+  width: 26px;
+  height: 26px;
+  stroke: var(--color-accent);
+  fill: none;
+  stroke-width: 1.8;
+}
+
+/* 卡片标题 */
+.info-card__title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+/* 卡片正文内容 */
+.info-card__body {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.75;
+}
+
+/* 卡片底部标签胶囊 */
+.info-card__tag {
+  display: inline-block;
+  padding: 3px 10px;
+  background: var(--color-accent-dim);
+  border: 1px solid rgba(13, 148, 136, 0.22);
+  border-radius: 100px;
+  font-size: 12px;
+  color: var(--color-accent);
+  font-weight: 600;
+  width: fit-content;
+  margin-top: auto;
+}
+
+/* 四列预警卡片网格 */
+.warning-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+/* 预警卡片，左侧色条标记级别 */
+.warning-card {
+  padding: 28px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border-left-width: 4px;
+  border-left-style: solid;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 预警卡片底层半透明遮罩 */
+.warning-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--color-accent);
+  opacity: 0.06;
+}
+
+/* 蓝色预警卡片样式 */
+.warning-card--blue {
+  border-left-color: #60A5FA;
+  background: rgba(96, 165, 250, 0.07);
+  border: 1px solid rgba(96, 165, 250, 0.18);
+  border-left: 4px solid #60A5FA;
+}
+
+/* 黄色预警卡片样式 */
+.warning-card--yellow {
+  border-left-color: #FBBF24;
+  background: rgba(251, 191, 36, 0.07);
+  border: 1px solid rgba(251, 191, 36, 0.18);
+  border-left: 4px solid #FBBF24;
+}
+
+/* 橙色预警卡片样式 */
+.warning-card--orange {
+  border-left-color: #F59E0B;
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  border-left: 4px solid #F59E0B;
+}
+
+/* 红色预警卡片样式 */
+.warning-card--red {
+  border-left-color: #E53E3E;
+  background: rgba(229, 62, 62, 0.09);
+  border: 1px solid rgba(229, 62, 62, 0.22);
+  border-left: 4px solid #E53E3E;
+}
+
+/* 预警等级圆形徽章 */
+.warning-card__badge {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* 各预警等级徽章颜色 */
+.warning-card--blue .warning-card__badge { background: #60A5FA; }
+.warning-card--yellow .warning-card__badge { background: #FBBF24; color: #1E293B; }
+.warning-card--orange .warning-card__badge { background: #F59E0B; color: #1E293B; }
+.warning-card--red .warning-card__badge {
+  background: #E53E3E;
+  animation: warning-pulse 2s infinite;
+}
+
+/* 红色预警徽章脉冲动画 */
+@keyframes warning-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(229, 62, 62, 0.45); }
+  50% { box-shadow: 0 0 0 10px rgba(229, 62, 62, 0); }
+}
+
+/* 橙色预警徽章脉冲动画 */
+.warning-card--orange .warning-card__badge {
+  animation: warning-pulse-orange 2.5s infinite;
+}
+
+@keyframes warning-pulse-orange {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.40); }
+  50% { box-shadow: 0 0 0 8px rgba(245, 158, 11, 0); }
+}
+
+/* 预警等级文字 */
+.warning-card__level {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+/* 预警内容说明 */
+.warning-card__desc {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+}
+
+/* 预警操作引导链接 */
+.warning-card__action {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-accent);
+  margin-top: 4px;
+}
+
+/* 时间轴纵向容器 */
+.timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 740px;
+}
+
+/* 时间轴左侧渐变竖线 */
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 28px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--color-accent), rgba(13, 148, 136, 0.1));
+}
+
+/* 时间轴单项列表项 */
+.timeline-item {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+  padding: 28px 32px 28px 0;
+  position: relative;
+}
+
+/* 时间轴步骤序号圆圈 */
+.timeline-item__num {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 800;
+  color: #fff;
+  z-index: 1;
+  box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.15);
+}
+
+/* 时间轴内容卡片 */
+.timeline-item__body {
+  flex: 1;
+  padding: 24px 28px;
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  backdrop-filter: blur(14px);
+  transition: border-color var(--transition-fast);
+}
+
+/* 时间轴内容卡片悬停边框高亮 */
+.timeline-item__body:hover {
+  border-color: var(--color-border-accent);
+}
+
+/* 时间轴步骤标题 */
+.timeline-item__title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 8px;
+}
+
+/* 时间轴步骤描述 */
+.timeline-item__text {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+}
+
+/* 手风琴折叠面板容器 */
+.accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* 手风琴单项 */
+.accordion-item {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(14px);
+  overflow: hidden;
+  transition: border-color var(--transition-fast);
+}
+
+/* 手风琴展开状态边框高亮 */
+.accordion-item.open {
+  border-color: var(--color-border-accent);
+}
+
+/* 手风琴标题栏按钮 */
+.accordion-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 28px;
+  background: none;
+  border: none;
+  color: var(--color-text);
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: none;
+  text-align: left;
+  gap: 16px;
+}
+
+/* 手风琴标题栏左侧内容区 */
+.accordion-trigger__left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* 手风琴标题栏图标容器 */
+.accordion-trigger__icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  background: var(--color-accent-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* 手风琴标题栏内 SVG 图标 */
+.accordion-trigger__icon svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--color-accent);
+  fill: none;
+  stroke-width: 2;
+}
+
+/* 手风琴展开收起箭头 */
+.accordion-chevron {
+  width: 20px;
+  height: 20px;
+  stroke: var(--color-text-secondary);
+  fill: none;
+  stroke-width: 2;
+  transition: transform var(--transition-fast);
+  flex-shrink: 0;
+}
+
+/* 展开时箭头旋转 180 度 */
+.accordion-item.open .accordion-chevron {
+  transform: rotate(180deg);
+}
+
+/* 手风琴内容区域，默认折叠隐藏 */
+.accordion-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
+/* 手风琴内容内边距包裹 */
+.accordion-body__inner {
+  padding: 0 28px 24px;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+}
+
+/* 清单列表容器 */
+.checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+/* 清单单项，带勾选框 */
+.checklist-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+/* 清单勾选框伪元素 */
+.checklist-item::before {
+  content: '';
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  background: rgba(13, 148, 136, 0.18);
+  border: 1px solid rgba(13, 148, 136, 0.4);
+  flex-shrink: 0;
+  margin-top: 1px;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3 8l4 4 6-6' stroke='%230D9488' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* 预警类型四列导航网格 */
+.warning-types {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 48px;
+}
+
+/* 预警类型卡片 */
+.warning-type {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 24px 16px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(14px);
+  transition: border-color var(--transition-fast), transform var(--transition-fast);
+}
+
+/* 预警类型卡片悬停上浮 */
+.warning-type:hover {
+  border-color: var(--color-border-accent);
+  transform: translateY(-2px);
+}
+
+/* 预警类型图标容器 */
+.warning-type__icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-accent-dim);
+}
+
+/* 预警类型图标 SVG */
+.warning-type__icon svg {
+  width: 22px;
+  height: 22px;
+  stroke: var(--color-accent);
+  fill: none;
+  stroke-width: 1.8;
+}
+
+/* 预警类型名称 */
+.warning-type__name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* 预警等级圆点行 */
+.warning-type__levels {
+  display: flex;
+  gap: 6px;
+}
+
+/* 等级颜色圆点 */
+.level-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+/* 各等级圆点颜色 */
+.level-blue { background: #60A5FA; }
+.level-yellow { background: #FBBF24; }
+.level-orange { background: #F59E0B; }
+.level-red { background: #E53E3E; }
+
+/* 平板断点下预警类型保持四列 */
+@media (max-width: 1024px) {
+  .warning-types {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* 移动断点下预警类型与预警卡改为两列 */
+@media (max-width: 768px) {
+  .warning-types {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .warning-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 小屏断点下预警卡与类型紧凑排列 */
+@media (max-width: 480px) {
+  .warning-types {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .warning-type {
+    padding: 18px 12px;
+  }
+  .warning-row {
+    grid-template-columns: 1fr;
+  }
+}

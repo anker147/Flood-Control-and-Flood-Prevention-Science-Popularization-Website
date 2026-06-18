@@ -1,0 +1,314 @@
+/* 全局盒模型重置与光标隐藏 */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  cursor: none !important;
+}
+
+/* 覆盖所有可文本选择元素的光标样式 */
+html, body,
+p, span, div, h1, h2, h3, h4, h5, h6,
+li, td, th, label, strong, em,
+a, button,
+input, textarea, select, option,
+[contenteditable="true"], [contenteditable=""],
+::selection {
+  cursor: none !important;
+}
+
+/* 全局 CSS 自定义属性定义 */
+:root {
+  --color-bg-deep: #F8FAFC;
+  --color-bg-mid: #EEF2F7;
+  --color-primary: #1B5FA0;
+  --color-primary-light: #2272BB;
+  --color-accent: #0D9488;
+  --color-accent-dim: rgba(13, 148, 136, 0.12);
+  --color-danger: #DC2626;
+  --color-warning-orange: #F59E0B;
+  --color-warning-yellow: #FBBF24;
+  --color-warning-blue: #60A5FA;
+  --color-surface: rgba(255, 255, 255, 0.65);
+  --color-surface-hover: rgba(255, 255, 255, 0.85);
+  --color-text: #1E293B;
+  --color-text-secondary: #64748B;
+  --color-border: rgba(15, 23, 42, 0.10);
+  --color-border-accent: rgba(13, 148, 136, 0.30);
+  --font-family: "Microsoft YaHei", "PingFang SC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --transition-fast: 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  --shadow-card: 0 8px 32px rgba(15, 23, 42, 0.10);
+  --shadow-glow: 0 0 24px rgba(13, 148, 136, 0.12);
+  --nav-height: 70px;
+}
+
+/* 页面平滑滚动 */
+html {
+  scroll-behavior: smooth;
+}
+
+/* 页面基础样式 */
+body {
+  font-family: var(--font-family);
+  background: var(--color-bg-deep);
+  color: var(--color-text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* 链接重置样式 */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* 图片默认块级响应式 */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* 内容宽度限制容器 */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* 通用页面段落基础间距 */
+.section {
+  padding: 96px 0;
+}
+
+/* 段落标签，带左侧装饰线 */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 16px;
+}
+
+/* 标签前置装饰线 */
+.section-label::before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--color-accent);
+  border-radius: 2px;
+}
+
+/* 段落大标题 */
+.section-title {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--color-text);
+  margin-bottom: 16px;
+}
+
+/* 段落描述文字 */
+.section-desc {
+  font-size: 16px;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  max-width: 560px;
+}
+
+/* 段落头部区域底部间距 */
+.section-head {
+  margin-bottom: 56px;
+}
+
+/* 毛玻璃卡片通用样式 */
+.glass-card {
+  background: var(--color-surface);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: transform var(--transition-normal),
+              box-shadow var(--transition-normal),
+              border-color var(--transition-normal);
+}
+
+/* 毛玻璃卡片悬停上浮效果 */
+.glass-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-card);
+  border-color: var(--color-border-accent);
+}
+
+/* 通用按钮基础样式 */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-family);
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  transition: background var(--transition-fast),
+              transform var(--transition-fast),
+              box-shadow var(--transition-fast);
+}
+
+/* 主要操作按钮 */
+.btn-primary {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+/* 主要按钮悬停态 */
+.btn-primary:hover {
+  background: var(--color-primary-light);
+  box-shadow: 0 6px 24px rgba(27, 95, 160, 0.45);
+  transform: translateY(-2px);
+}
+
+/* 主要按钮按下缩放 */
+.btn-primary:active {
+  transform: scale(0.97);
+}
+
+/* 描边次要按钮 */
+.btn-outline {
+  background: transparent;
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+/* 描边按钮悬停态 */
+.btn-outline:hover {
+  background: var(--color-surface-hover);
+  border-color: var(--color-border-accent);
+}
+
+/* 滚动显示动画初始隐藏态 */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* 滚动显示动画可见态，上移淡入 */
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 自定义光标与拖尾元素基类 */
+.cursor-main,
+.cursor-trail {
+  position: fixed;
+  left: 0;
+  top: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform;
+  transform: translate(-1000px, -1000px);
+}
+
+/* 主光标小圆点 本体蓝色 光晕保留绿色 */
+.cursor-main {
+  width: 8px;
+  height: 8px;
+  background: #2563EB;
+  box-shadow: 0 0 3px rgba(13, 148, 136, 0.5), 0 0 7px rgba(13, 148, 136, 0.25);
+  z-index: 100000;
+}
+
+/* 光标拖尾基类，具体样式由 JS 内联 */
+.cursor-trail {
+  /* 尺寸/颜色/阴影由 JS 内联设置，此处仅作基类 */
+}
+
+/* 悬浮链接或按钮时光标放大变亮 使用蓝色光效 */
+body.cursor-on-link .cursor-main {
+  width: 14px;
+  height: 14px;
+  background: #3B82F6;
+  box-shadow: 0 0 8px rgba(13, 148, 136, 0.7);
+  z-index: 100001;
+}
+
+/* 环境光斑装饰元素 */
+.ambient-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 打印样式修复 强制白底黑字 去除装饰省墨 */
+@media print {
+
+  *,
+  *::before,
+  *::after {
+    box-shadow: none !important;
+    text-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  .cursor-main,
+  .cursor-trail,
+  .hero__canvas,
+  .ambient-blob,
+  .hero__scroll-hint,
+  .play-btn {
+    display: none !important;
+  }
+
+  .glass-card,
+  .login-card,
+  .warning-card,
+  .timeline-item__body,
+  .accordion-item,
+  .warning-type,
+  .evac-tip,
+  .portal-card,
+  .disaster-detail__meta-item,
+  .video-block__placeholder {
+    background: #fff !important;
+    border: 1px solid #ddd !important;
+  }
+
+  .section--alt {
+    background: #f9f9f9 !important;
+  }
+
+  a {
+    color: #000 !important;
+  }
+
+  .hero__bg,
+  .hero__bg-image,
+  .page-hero__bg,
+  .hero__img-overlay,
+  .portal-card__img-overlay,
+  .video-overlay {
+    display: none !important;
+  }
+
+}
